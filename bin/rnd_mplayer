@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+/**
+ * Shuffle an Array
+*/
+var shuffle = function(o){
+	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+};
+
+
+// get the dirnames from the cmdline
+var dirnames	= process.argv.slice(2);
+// shuffle the dirnames
+shuffle(dirnames)
+
+// build the command line
+var cmdline	= "smplayer "
+for(var i = 0; i < dirnames.length; i++){
+	var dirname	= dirnames[i];
+	cmdline	+= " \""+dirname+"\"/*";
+}
+
+// launch the command
+require('child_process').exec(cmdline, function(error, stdout, stderr){
+	//console.log(stdout);
+});
